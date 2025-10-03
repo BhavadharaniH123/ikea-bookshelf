@@ -1,0 +1,42 @@
+{
+  "HomePage": {
+    "searchBox": "getByRole('combobox', { name: 'Search for products,' })",
+    "okButton": "getByRole('button', { name: 'Ok', exact: true })",
+    "tabButtons": "locator('.hnf-typography-label-m.hnf-tabs__tab')"
+  },
+  "SearchResultsPage": {
+    "allFiltersButton": "getByRole('button', { name: 'All filters' })",
+    "categoryButton": "getByLabel('Sort and Filter').getByRole('button', { name: 'Category' })",
+    "storageSolutionButton": "getByRole('button', { name: 'Storage solution systems' })",
+    "omarSystemButton": "getByRole('button', { name: 'OMAR system' })",
+    "priceButton": "getByLabel('Sort and Filter').getByRole('button', { name: 'Price' })",
+    "priceRange0": "locator('label:has-text(\"\u20b90 -\") span').nth(4)",
+    "priceRange5000": "locator('label:has-text(\"\u20b95,000 -\") span').nth(4)",
+    "priceRange10000": "locator('label:has-text(\"\u20b910,000 -\") span').nth(4)",
+    "availabilityButton": "getByLabel('Sort and Filter').getByRole('button', { name: 'Availability' })",
+    "availabilityOption": "getByRole('group', { name: 'Availability' }).locator('span').nth(4)",
+    "viewButton": "locator('button:has-text(\"View\")').first()",
+    "productCompact": "locator('[data-testid=\"product-compact\"]')",
+    "customerRatingButton": "getByLabel('Sort and Filter').getByRole('button', { name: 'Customer rating' })",
+    "ratingCheckbox": "locator('#SEC_RATINGS .plp-checkbox__symbol').first()",
+    "viewRatingButton": "getByRole('button', { name: /View \\d+/ })"
+  },
+  "GiftCardPage": {
+    "giftCardLink": "getByRole('link', { name: 'Gift Card', exact: true })",
+    "buyGiftCardLink": "getByRole('link', { name: 'Buy IKEA Gift Card online' })",
+    "amountInput": "getByPlaceholder('Or enter a custom amount')",
+    "messageInput": "getByRole('textbox', { name: 'Or fill out a personalized' })",
+    "firstNameInput": "getByRole('textbox', { name: 'First Name*' })",
+    "lastNameInput": "getByRole('textbox', { name: 'Last Name*' })",
+    "emailInput": "getByRole('textbox', { name: 'Email*', exact: true })",
+    "confirmEmailInput": "getByRole('textbox', { name: 'Confirm email*' })",
+    "submitButton": "getByRole('button', { name: 'Add to shopping cart' })",
+    "errorBox": "locator('.errorBox', { hasText: 'Please enter a valid email' })",
+    "termsCheckbox": "getByRole('checkbox', { name: 'I Agree to the Gift cards' })"
+  },
+  "CartPage": {
+    "continueButton": "getByRole('link', { name: 'Continue' })",
+    "cartItem": "locator('.cartItem2').filter({ hasText: email }).filter({ hasText: amount })"
+  }
+}
+ 
