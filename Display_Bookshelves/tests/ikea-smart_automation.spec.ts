@@ -1,6 +1,8 @@
 import { test } from '../utils/test-base';
 import { CartPage } from '../pages/CartPage';
 import { SearchResults } from '../pages/SearchResults';
+import { GiftCardPage } from '../pages/GiftCardPage';
+
 
 type TestData = {
   category: string;
@@ -48,6 +50,46 @@ test.describe('Search Results Page Tests', () => {
     await results.printTopProducts('Top 3 Study Chairs:', 3);
   });
 });
+// function getValue(testData: { category: string; field: string; value: string }[], category: string, field: string): string {
+//   return testData.find(d => d.category === category && d.field === field)?.value || '';
+// }
+
+
+test('US7: Navigate to Gift Card section and initiate purchase', async ({ page, testData }) => {
+  test.setTimeout(90000);
+  const giftCard = new GiftCardPage(page);
+
+  await giftCard.gotoHomePage();
+  await giftCard.acceptCookies();
+  await giftCard.navigateToGiftCard();
+  await giftCard.fillGiftCardDetails({
+    amount: getValue(testData, 'GiftCard', 'Amount'),
+    message: getValue(testData, 'GiftCard', 'Message'),
+    firstName: getValue(testData, 'GiftCard', 'First Name'),
+    lastName: getValue(testData, 'GiftCard', 'Last Name'),
+    email: getValue(testData, 'GiftCard', 'Valid Email'),
+    confirmEmail: getValue(testData, 'GiftCard', 'Valid Email')
+  });
+});
+
+test('US8: Test email validation and error recovery', async ({ page,testData }) => {
+  test.setTimeout(90000);
+  const giftCard = new GiftCardPage(page);
+  await giftCard.gotoHomePage();
+  await giftCard.acceptCookies();
+  await giftCard.navigateToGiftCard();
+  await giftCard.fillGiftCardDetails({
+    amount: getValue(testData, 'GiftCard', 'Amount'),
+    message: getValue(testData, 'GiftCard', 'Message'),
+    firstName: getValue(testData, 'GiftCard', 'First Name'),
+    lastName: getValue(testData, 'GiftCard', 'Last Name'),
+    email: getValue(testData, 'GiftCard', 'Invalid Email'),
+    confirmEmail: getValue(testData, 'GiftCard', 'Valid Email')
+  });
+  await giftCard.submitGiftCardForm();
+  await giftCard.validateEmailError();
+});
+
 test('US9: Refill valid email and resubmit gift card form', async ({ page, testData }) => {
   const giftCard = new CartPage(page);
 
