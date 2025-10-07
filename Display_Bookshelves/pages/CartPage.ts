@@ -1,5 +1,5 @@
 import { expect, Page, Locator } from '@playwright/test';
-import { BasePage } from './basePage';
+import { BasePage } from '../pages/BasePage';
 import locators from '../locators/locators.json';
 
 type LocatorOptions = Record<string, any>;

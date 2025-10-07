@@ -1,10 +1,53 @@
 import { test } from '../utils/test-base';
 import { CartPage } from '../pages/CartPage';
+import { SearchResults } from '../pages/SearchResults';
 
+type TestData = {
+  category: string;
+  field: string;
+  value: string;
+  };
 function getValue(testData: { category: string; field: string; value: string }[], category: string, field: string): string {
   return testData.find(d => d.category === category && d.field === field)?.value || '';
 }
 
+
+
+
+// Helper to extract value from testData array
+function getTestValue(testData: TestData[], category: string, field: string): string {
+  const entry = testData.find(item => item.category === category && item.field === field);
+  return entry?.value ?? '';
+}
+
+test.describe('Search Results Page Tests', () => {
+  test('US5: Search for "Study Chairs" and apply rating filter', async ({ page, testData }) => {
+    test.setTimeout(90000);
+    const results = new SearchResults(page);
+    const searchTerm = getTestValue(testData, 'Search', 'Study Chairs');
+
+    await results.gotoHomePage();       // from BasePage
+    await results.acceptCookies();      // from BasePage
+    await results.searchProduct(searchTerm);
+    await results.openAllFilters();     // includes waitFor
+    await results.applyCustomerRatingFilter();
+    await results.applyViewButton();
+  });
+
+  test('US6: Extract top 3 study chairs with highest recommendation', async ({ page, testData }) => {
+    test.setTimeout(90000);
+    const results = new SearchResults(page);
+    const searchTerm = getTestValue(testData, 'Search', 'Study Chairs');
+
+    await results.gotoHomePage();
+    await results.acceptCookies();
+    await results.searchProduct(searchTerm);
+    await results.openAllFilters();
+    await results.applyCustomerRatingFilter();
+    await results.applyViewButton();
+    await results.printTopProducts('Top 3 Study Chairs:', 3);
+  });
+});
 test('US9: Refill valid email and resubmit gift card form', async ({ page, testData }) => {
   const giftCard = new CartPage(page);
 
