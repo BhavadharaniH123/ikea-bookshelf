@@ -10,18 +10,23 @@
     "storageSolutionButton": "getByRole('button', { name: 'Storage solution systems' })",
     "omarSystemButton": "getByRole('button', { name: 'OMAR system' })",
     "priceButton": "getByLabel('Sort and Filter').getByRole('button', { name: 'Price' })",
-    "priceRange0": "locator('label:has-text(\"\u20b90 -\") span').nth(4)",
-    "priceRange5000": "locator('label:has-text(\"\u20b95,000 -\") span').nth(4)",
-    "priceRange10000": "locator('label:has-text(\"\u20b910,000 -\") span').nth(4)",
+    "priceRange0": "locator('label:has-text(\"₹0 -\") span').nth(4)",
+    "priceRange5000": "locator('label:has-text(\"₹5,000 -\") span').nth(4)",
+    "priceRange10000": "locator('label:has-text(\"₹10,000 -\") span').nth(4)",
     "availabilityButton": "getByLabel('Sort and Filter').getByRole('button', { name: 'Availability' })",
     "availabilityOption": "getByRole('group', { name: 'Availability' }).locator('span').nth(4)",
     "viewButton": "locator('button:has-text(\"View\")').first()",
     "productCompact": "locator('[data-testid=\"product-compact\"]')",
     "customerRatingButton": "getByLabel('Sort and Filter').getByRole('button', { name: 'Customer rating' })",
     "ratingCheckbox": "locator('#SEC_RATINGS .plp-checkbox__symbol').first()",
-    "viewRatingButton": "getByRole('button', { name: /View \\d+/ })"
+    "viewRatingButton": "getByRole('button', { name: /View \\d+/ })",
+    "category_checkbox": "locator('label:has-text(\"{category}\") input[type=\"checkbox\"]')",
+    "price_checkbox": "locator('label:has-text(\"{price}\") input[type=\"checkbox\"]')",
+    "product_name": "//div[contains(@class,'plp-product-list__products')]/div//span[contains(@class,'plp-price-module__name-decorator')]",
+    "product_price": "//div[contains(@class,'plp-product-list__products')]/div//span[contains(@class,'plp-price__integer')]"
   },
-  "GiftCardPage": {
+ 
+"GiftCardPage": {
     "giftCardLink": "getByRole('link', { name: 'Gift Card', exact: true })",
     "buyGiftCardLink": "getByRole('link', { name: 'Buy IKEA Gift Card online' })",
     "amountInput": "getByPlaceholder('Or enter a custom amount')",
@@ -39,4 +44,3 @@
     "cartItem": "locator('.cartItem2').filter({ hasText: email }).filter({ hasText: amount })"
   }
 }
- 
