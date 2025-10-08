@@ -1,4 +1,5 @@
 import { test } from '../utils/test-base';
+import { HomePage } from '../pages/HomePage';
 import { CartPage } from '../pages/CartPage';
 import { SearchResults } from '../pages/SearchResults';
 import { GiftCardPage } from '../pages/GiftCardPage';
@@ -21,6 +22,19 @@ function getTestValue(testData: TestData[], category: string, field: string): st
   const entry = testData.find(item => item.category === category && item.field === field);
   return entry?.value ?? '';
 }
+test('US1: Navigate to IKEA and handle cookie popup', async ({ page }) => { 
+  const home = new HomePage(page); 
+  await home.gotoHomePage(); 
+  await home.acceptCookies(); 
+}); 
+
+test('US2: Retrieve sub-menu items under "Being-At-home"', async ({ page }) => { 
+  const home = new HomePage(page); 
+  await home.gotoHomePage(); 
+  await home.acceptCookies(); 
+  const tabs = await home.getCollectionTabs(); 
+  console.log('Collection Tabs:', tabs);
+ });
 
 test.describe('Search Results Page Tests', () => {
   test('US5: Search for "Study Chairs" and apply rating filter', async ({ page, testData }) => {
