@@ -83,15 +83,15 @@ async acceptCookies() {
   try {
     if (await cookieButton.isVisible({ timeout: 5000 })) {
       await cookieButton.click();
-      console.log('✅ Cookie accepted via button:has-text');
+      console.log(' Cookie accepted via button:has-text');
     } else if (await fallbackButton.isVisible({ timeout: 5000 })) {
       await fallbackButton.click();
-      console.log('✅ Cookie accepted via text=Accept Cookies');
+      console.log(' Cookie accepted via text=Accept Cookies');
     } else {
-      console.log('⚠️ Cookie button not visible');
+      console.log(' Cookie button not visible');
     }
   } catch (error) {
-    console.log('⚠️ Cookie popup not found or already handled');
+    console.log(' Cookie popup not found or already handled');
   }
 }
 
@@ -103,10 +103,10 @@ async acceptCookies() {
       try {
         await amountLocator.scrollIntoViewIfNeeded();
         await amountLocator.waitFor({ state: 'visible', timeout: 20000 });
-        console.log(`✅ Amount field visible on attempt ${i + 1}`);
+        console.log(`Amount field visible on attempt ${i + 1}`);
         break;
       } catch (e) {
-        console.warn(`⚠️ Attempt ${i + 1}: Amount field not visible yet`);
+        console.warn(` Attempt ${i + 1}: Amount field not visible yet`);
         if (i === 2) throw e;
       }
     }
@@ -171,6 +171,6 @@ async acceptCookies() {
     const filteredLocator = baseLocator.filter({ hasText: email }).filter({ hasText: amount });
 
     await expect(filteredLocator).toBeVisible();
-    console.log('✅ Gift card successfully added to the cart and visible on the dashboard.');
+    console.log('Gift card successfully added to the cart and visible on the dashboard.');
   }
 }

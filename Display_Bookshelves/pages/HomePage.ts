@@ -1,34 +1,21 @@
-// po.ts
-import { Page } from '@playwright/test';
+import { BasePage } from './BasePage';
+import locators from '../locators/locators.json';
 
-export class HomePage {
-  readonly page: Page;
-
-  constructor(page: Page) {
-    this.page = page;
-  }
-
-  async gotoHomePage(): Promise<void> {
-    await this.page.goto('https://www.ikea.com/');
-  }
-
-  async acceptCookies(): Promise<void> {
-    const acceptButton = this.page.locator('button:has-text("Accept all cookies")');
-    if (await acceptButton.isVisible()) {
-      await acceptButton.click();
-    }
+export class HomePage extends BasePage {
+  constructor(page) {
+    super(page);
   }
 
   async getCollectionTabs(): Promise<string[]> {
-    await this.page.hover('text=Being-At-home');
-    const tabItems = this.page.locator('.submenu-class-selector'); // Replace with actual selector
-    const count = await tabItems.count();
-    const tabs: string[] = [];
+    const tabButtons = eval(`this.page.${locators.HomePage.tabButtons}`);
+    const count = await tabButtons.count();
+    const tabNames: string[] = [];
 
     for (let i = 0; i < count; i++) {
-      tabs.push(await tabItems.nth(i).innerText());
+      const text = (await tabButtons.nth(i).innerText())?.trim() || 'Unnamed Tab';
+      tabNames.push(text);
     }
 
-    return tabs;
+    return tabNames;
   }
 }

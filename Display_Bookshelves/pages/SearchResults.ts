@@ -19,6 +19,7 @@ export class SearchResults extends BasePage {
     super(page);
   }
 
+  
   async acceptCookies() {
     await this.page.waitForTimeout(2000);
 

@@ -16,8 +16,6 @@ function getValue(testData: { category: string; field: string; value: string }[]
 }
 
 
-
-
 // Helper to extract value from testData array
 function getTestValue(testData: TestData[], category: string, field: string): string {
   const entry = testData.find(item => item.category === category && item.field === field);
@@ -36,6 +34,7 @@ test('US2: Retrieve sub-menu items under "Being-At-home"', async ({ page }) => {
   const tabs = await home.getCollectionTabs(); 
   console.log('Collection Tabs:', tabs);
  });
+
  test('US3: Search for "Bookshelves"', async ({ page, testData }) => {
    test.setTimeout(60000);
    const results = new FiltersPage(page);
@@ -58,7 +57,7 @@ test('US2: Retrieve sub-menu items under "Being-At-home"', async ({ page }) => {
    await results.printTopProducts('Bookshelves below ₹15,000 with open storage', 3);
  });
 
-test.describe('Search Results Page Tests', () => {
+
   test('US5: Search for "Study Chairs" and apply rating filter', async ({ page, testData }) => {
     test.setTimeout(90000);
     const results = new SearchResults(page);
@@ -85,10 +84,8 @@ test.describe('Search Results Page Tests', () => {
     await results.applyViewButton();
     await results.printTopProducts('Top 3 Study Chairs:', 3);
   });
-});
-// function getValue(testData: { category: string; field: string; value: string }[], category: string, field: string): string {
-//   return testData.find(d => d.category === category && d.field === field)?.value || '';
-// }
+
+
 
 
 test('US7: Navigate to Gift Card section and initiate purchase', async ({ page, testData }) => {
