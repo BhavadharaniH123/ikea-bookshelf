@@ -1,13 +1,14 @@
+import { Page } from '@playwright/test';
 import { BasePage } from './BasePage';
 import locators from '../locators/locators.json';
 
 export class HomePage extends BasePage {
-  constructor(page) {
+  constructor(page: Page) {
     super(page);
   }
 
   async getCollectionTabs(): Promise<string[]> {
-    const tabButtons = eval(`this.page.${locators.HomePage.tabButtons}`);
+    const tabButtons = this.getLocator(locators.HomePage.tabButtons);
     const count = await tabButtons.count();
     const tabNames: string[] = [];
 

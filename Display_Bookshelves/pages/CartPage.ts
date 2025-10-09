@@ -1,99 +1,48 @@
-import { expect, Page, Locator } from '@playwright/test';
+import { expect, Page } from '@playwright/test';
 import { BasePage } from '../pages/BasePage';
 import locators from '../locators/locators.json';
-
-type LocatorOptions = Record<string, any>;
 
 export class CartPage extends BasePage {
   constructor(page: Page) {
     super(page);
   }
 
-  private getLocator(locatorString: string): Locator {
-    if (locatorString.startsWith("getByRole")) {
-      const match = locatorString.match(/getByRole\('([^']*)',\s*(\{.*\})\)/);
-      if (match) {
-        const role = match[1];
-        const options = this.parseOptions(match[2]);
-        return this.page.getByRole(role as any, options); 
-      }
-    }
+  async navigateToGiftCard() {
+    const { giftCardLink, buyGiftCardLink } = locators.GiftCardPage;
 
-    if (locatorString.startsWith("getByPlaceholder")) {
-      const match = locatorString.match(/getByPlaceholder\('([^']*)'\)/);
-      if (match) {
-        const text = match[1];
-        return this.page.getByPlaceholder(text);
-      }
-    }
+    const giftCardLocator = this.getLocator(giftCardLink);
+    await giftCardLocator.waitFor({ state: 'visible', timeout: 10000 });
+    await giftCardLocator.click();
+    await this.page.waitForLoadState('domcontentloaded');
 
-    if (locatorString.startsWith("locator")) {
-      const match = locatorString.match(/locator\('([^']*)'(.*)\)/); 
-      if (match) {
-        const selector = match[1];
-        return this.page.locator(selector);
-      }
-    }
+    const buyGiftCardLocator = this.getLocator(buyGiftCardLink);
+    await buyGiftCardLocator.waitFor({ state: 'visible', timeout: 10000 });
+    await buyGiftCardLocator.click();
+    await this.page.waitForLoadState('domcontentloaded');
 
-    return this.page.locator(locatorString);
+    await this.page.locator('form[name="step1Form"]').waitFor({ state: 'visible', timeout: 20000 });
   }
 
-  private parseOptions(optionsString: string): LocatorOptions {
+  async acceptCookies() {
+    await this.page.waitForTimeout(2000);
+
+    const cookieButton = this.page.locator('button:has-text("Ok")');
+    const fallbackButton = this.page.locator('text=Accept Cookies');
+
     try {
-      let jsonString = optionsString
-        .replace(/'/g, '"')
-        .replace(/([{,]\s*)(\w+):/g, '$1"$2":');
-      jsonString = jsonString.replace(/"name":\s*\/(.*?)\//g, (m, regex) => `"name": "__REGEX__${regex}__"`);
-      let options = JSON.parse(jsonString);
-
-      if (typeof options.name === 'string' && options.name.startsWith('__REGEX__')) {
-        const regexBody = options.name.replace('__REGEX__', '').replace('__', '');
-        options.name = new RegExp(regexBody);
+      if (await cookieButton.isVisible({ timeout: 5000 })) {
+        await cookieButton.click();
+        console.log(' Cookie accepted via button:has-text');
+      } else if (await fallbackButton.isVisible({ timeout: 5000 })) {
+        await fallbackButton.click();
+        console.log(' Cookie accepted via text=Accept Cookies');
+      } else {
+        console.log(' Cookie button not visible');
       }
-      return options;
-    } catch (e) {
-      return {};
+    } catch (error) {
+      console.log(' Cookie popup not found or already handled');
     }
   }
-  
-
-
-async navigateToGiftCard() {
-  const { giftCardLink, buyGiftCardLink } = locators.GiftCardPage;
-
-  const giftCardLocator = this.getLocator(giftCardLink);
-  await giftCardLocator.waitFor({ state: 'visible', timeout: 10000 });
-  await giftCardLocator.click();
-  await this.page.waitForLoadState('domcontentloaded');
-
-  const buyGiftCardLocator = this.getLocator(buyGiftCardLink);
-  await buyGiftCardLocator.waitFor({ state: 'visible', timeout: 10000 });
-  await buyGiftCardLocator.click();
-  await this.page.waitForLoadState('domcontentloaded');
-
-  // Specific form locator to avoid strict mode violation
-  await this.page.locator('form[name="step1Form"]').waitFor({ state: 'visible', timeout: 10000 });
-}
-async acceptCookies() {
-  await this.page.waitForTimeout(2000);
-
-  const cookieButton = this.page.locator('button:has-text("Accept")');
-  const fallbackButton = this.page.locator('text=Accept Cookies');
-
-  try {
-    if (await cookieButton.isVisible({ timeout: 5000 })) {
-      await cookieButton.click();
-      console.log(' Cookie accepted via button:has-text');
-    } else if (await fallbackButton.isVisible({ timeout: 5000 })) {
-      await fallbackButton.click();
-      console.log(' Cookie accepted via text=Accept Cookies');
-    } else {
-      console.log(' Cookie button not visible');
-    }
-  } catch (error) {
-    console.log(' Cookie popup not found or already handled');
-  }
-}
 
   async fillAmountAndMessage(amount: string, message: string) {
     const { amountInput, messageInput } = locators.GiftCardPage;
@@ -167,8 +116,8 @@ async acceptCookies() {
   }
 
   async verifyGiftCardInCart(email: string, amount: string) {
-    const baseLocator = this.page.locator('.cartItem2');
-    const filteredLocator = baseLocator.filter({ hasText: email }).filter({ hasText: amount });
+    const cartItemLocator = this.getLocator(locators.CartPage.cartItem);
+    const filteredLocator = cartItemLocator.filter({ hasText: email }).filter({ hasText: amount });
 
     await expect(filteredLocator).toBeVisible();
     console.log('Gift card successfully added to the cart and visible on the dashboard.');

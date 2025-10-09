@@ -1,46 +1,246 @@
 {
   "HomePage": {
-    "searchBox": "getByRole('combobox', { name: 'Search for products,' })",
-    "okButton": "getByRole('button', { name: 'Ok', exact: true })",
-    "tabButtons": "locator('.hnf-typography-label-m.hnf-tabs__tab')"
+    "searchBox": {
+      "type": "getByRole",
+      "role": "combobox",
+      "options": {
+        "name": "Search for products,"
+      }
+    },
+    "okButton": {
+      "type": "getByRole",
+      "role": "button",
+      "options": {
+        "name": "Ok",
+        "exact": true
+      }
+    },
+    "tabButtons": {
+      "type": "locator",
+      "selector": ".hnf-typography-label-m.hnf-tabs__tab"
+    }
   },
   "SearchResultsPage": {
-    "allFiltersButton": "getByRole('button', { name: 'All filters' })",
-    "categoryButton": "getByLabel('Sort and Filter').getByRole('button', { name: 'Category' })",
-    "storageSolutionButton": "getByRole('button', { name: 'Storage solution systems' })",
-    "omarSystemButton": "getByRole('button', { name: 'OMAR system' })",
-    "priceButton": "getByLabel('Sort and Filter').getByRole('button', { name: 'Price' })",
-    "priceRange0": "locator('label:has-text(\"₹0 -\") span').nth(4)",
-    "priceRange5000": "locator('label:has-text(\"₹5,000 -\") span').nth(4)",
-    "priceRange10000": "locator('label:has-text(\"₹10,000 -\") span').nth(4)",
-    "availabilityButton": "getByLabel('Sort and Filter').getByRole('button', { name: 'Availability' })",
-    "availabilityOption": "getByRole('group', { name: 'Availability' }).locator('span').nth(4)",
-    "viewButton": "locator('button:has-text(\"View\")').first()",
-    "productCompact": "locator('[data-testid=\"product-compact\"]')",
-    "customerRatingButton": "getByLabel('Sort and Filter').getByRole('button', { name: 'Customer rating' })",
-    "ratingCheckbox": "locator('#SEC_RATINGS .plp-checkbox__symbol').first()",
-    "viewRatingButton": "getByRole('button', { name: /View \\d+/ })",
-    "category_checkbox": "locator('label:has-text(\"{category}\") input[type=\"checkbox\"]')",
-    "price_checkbox": "locator('label:has-text(\"{price}\") input[type=\"checkbox\"]')",
-    "product_name": "//div[contains(@class,'plp-product-list__products')]/div//span[contains(@class,'plp-price-module__name-decorator')]",
-    "product_price": "//div[contains(@class,'plp-product-list__products')]/div//span[contains(@class,'plp-price__integer')]"
+    "allFiltersButton": {
+      "type": "getByRole",
+      "role": "button",
+      "options": {
+        "name": "All filters"
+      }
+    },
+    "categoryButton": {
+      "type": "getByLabel",
+      "label": "Sort and Filter",
+      "nested": {
+        "role": "button",
+        "options": {
+          "name": "Category"
+        }
+      }
+    },
+    "storageSolutionButton": {
+      "type": "getByRole",
+      "role": "button",
+      "options": {
+        "name": "Storage solution systems"
+      }
+    },
+    "omarSystemButton": {
+      "type": "getByRole",
+      "role": "button",
+      "options": {
+        "name": "OMAR system"
+      }
+    },
+    "priceButton": {
+      "type": "getByLabel",
+      "label": "Sort and Filter",
+      "nested": {
+        "role": "button",
+        "options": {
+          "name": "Price"
+        }
+      }
+    },
+    "priceRange0": {
+      "type": "locator",
+      "selector": "label:has-text(\"₹0 -\") span",
+      "nth": 4
+    },
+    "priceRange5000": {
+      "type": "locator",
+      "selector": "label:has-text(\"₹5,000 -\") span",
+      "nth": 4
+    },
+    "priceRange10000": {
+      "type": "locator",
+      "selector": "label:has-text(\"₹10,000 -\") span",
+      "nth": 4
+    },
+    "availabilityButton": {
+      "type": "getByLabel",
+      "label": "Sort and Filter",
+      "nested": {
+        "role": "button",
+        "options": {
+          "name": "Availability"
+        }
+      }
+    },
+    "availabilityOption": {
+      "type": "getByRole",
+      "role": "group",
+      "options": {
+        "name": "Availability"
+      },
+      "nestedLocator": {
+        "type": "locator",
+        "selector": "span",
+        "nth": 4
+      }
+    },
+    "viewButton": {
+      "type": "locator",
+      "selector": "button:has-text(\"View\")",
+      "first": true
+    },
+    "productCompact": {
+      "type": "locator",
+      "selector": "[data-testid=\"product-compact\"]"
+    },
+    "customerRatingButton": {
+      "type": "getByLabel",
+      "label": "Sort and Filter",
+      "nested": {
+        "role": "button",
+        "options": {
+          "name": "Customer rating"
+        }
+      }
+    },
+    "ratingCheckbox": {
+      "type": "locator",
+      "selector": "#SEC_RATINGS .plp-checkbox__symbol",
+      "first": true
+    },
+    "viewRatingButton": {
+      "type": "getByRole",
+      "role": "button",
+      "options": {
+        "name": "/View \\d+/"
+      }
+    },
+    "category_checkbox": {
+      "type": "locator",
+      "selector": "label:has-text(\"{category}\") input[type=\"checkbox\"]"
+    },
+    "price_checkbox": {
+      "type": "locator",
+      "selector": "label:has-text(\"{price}\") input[type=\"checkbox\"]"
+    },
+    "product-compact__name": {
+      "type": "xpath",
+      "expression": "//div[contains(@class,'plp-product-list__products')]/div//span[contains(@class,'plp-price-module__name-decorator')]"
+    },
+    "product-compact__price": {
+      "type": "xpath",
+      "expression": "//div[contains(@class,'plp-product-list__products')]/div//span[contains(@class,'plp-price__integer')]"
+    }
   },
- 
-"GiftCardPage": {
-    "giftCardLink": "getByRole('link', { name: 'Gift Card', exact: true })",
-    "buyGiftCardLink": "getByRole('link', { name: 'Buy IKEA Gift Card online' })",
-    "amountInput": "getByPlaceholder('Or enter a custom amount')",
-    "messageInput": "getByRole('textbox', { name: 'Or fill out a personalized' })",
-    "firstNameInput": "getByRole('textbox', { name: 'First Name*' })",
-    "lastNameInput": "getByRole('textbox', { name: 'Last Name*' })",
-    "emailInput": "getByRole('textbox', { name: 'Email*', exact: true })",
-    "confirmEmailInput": "getByRole('textbox', { name: 'Confirm email*' })",
-    "submitButton": "getByRole('button', { name: 'Add to shopping cart' })",
-    "errorBox": "locator('.errorBox', { hasText: 'Please enter a valid email' })",
-    "termsCheckbox": "getByRole('checkbox', { name: 'I Agree to the Gift cards' })"
+  "GiftCardPage": {
+    "giftCardLink": {
+      "type": "getByRole",
+      "role": "link",
+      "options": {
+        "name": "Gift Card",
+        "exact": true
+      }
+    },
+    "buyGiftCardLink": {
+      "type": "getByRole",
+      "role": "link",
+      "options": {
+        "name": "Buy IKEA Gift Card online"
+      }
+    },
+    "amountInput": {
+      "type": "getByPlaceholder",
+      "text": "Or enter a custom amount"
+    },
+    "messageInput": {
+      "type": "getByRole",
+      "role": "textbox",
+      "options": {
+        "name": "Or fill out a personalized"
+      }
+    },
+    "firstNameInput": {
+      "type": "getByRole",
+      "role": "textbox",
+      "options": {
+        "name": "First Name*"
+      }
+    },
+    "lastNameInput": {
+      "type": "getByRole",
+      "role": "textbox",
+      "options": {
+        "name": "Last Name*"
+      }
+    },
+    "emailInput": {
+      "type": "getByRole",
+      "role": "textbox",
+      "options": {
+        "name": "Email*",
+        "exact": true
+      }
+    },
+    "confirmEmailInput": {
+      "type": "getByRole",
+      "role": "textbox",
+      "options": {
+        "name": "Confirm email*"
+      }
+    },
+    "submitButton": {
+      "type": "getByRole",
+      "role": "button",
+      "options": {
+        "name": "Add to shopping cart"
+      }
+    },
+    "errorBox": {
+      "type": "locator",
+      "selector": ".errorBox",
+      "filter": {
+        "hasText": "Please enter a valid email"
+      }
+    },
+    "termsCheckbox": {
+      "type": "getByRole",
+      "role": "checkbox",
+      "options": {
+        "name": "I Agree to the Gift cards"
+      }
+    }
   },
   "CartPage": {
-    "continueButton": "getByRole('link', { name: 'Continue' })",
-    "cartItem": "locator('.cartItem2').filter({ hasText: email }).filter({ hasText: amount })"
+    "continueButton": {
+      "type": "getByRole",
+      "role": "link",
+      "options": {
+        "name": "Continue"
+      }
+    },
+    
+"cartItem": {
+  "type": "locator",
+  "selector": ".cartItem2",
+  "filter": {
+    "hasTextList": ["email", "amount"]
+  }
+}
+
   }
 }
