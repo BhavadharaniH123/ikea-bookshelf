@@ -24,26 +24,26 @@ export class GiftCardPage extends BasePage {
     await buyGiftCardLocator.click();
   }
 
-  async acceptCookies() {
-    await this.page.waitForTimeout(2000);
+  // async acceptCookies() {
+  //   await this.page.waitForTimeout(2000);
 
-    const cookieButton = this.page.locator('button:has-text("Ok")');
-    const fallbackButton = this.page.locator('text=Accept Cookies');
+  //   const cookieButton = this.page.locator('button:has-text("Ok")');
+  //   const fallbackButton = this.page.locator('text=Accept Cookies');
 
-    try {
-      if (await cookieButton.isVisible({ timeout: 5000 })) {
-        await cookieButton.click();
-        console.log(' Cookie accepted via button:has-text');
-      } else if (await fallbackButton.isVisible({ timeout: 5000 })) {
-        await fallbackButton.click();
-        console.log(' Cookie accepted via text=Accept Cookies');
-      } else {
-        console.log(' Cookie button not visible');
-      }
-    } catch (error) {
-      console.log(' Cookie popup not found or already handled');
-    }
-  }
+  //   try {
+  //     if (await cookieButton.isVisible({ timeout: 5000 })) {
+  //       await cookieButton.click();
+  //       console.log(' Cookie accepted via button:has-text');
+  //     } else if (await fallbackButton.isVisible({ timeout: 5000 })) {
+  //       await fallbackButton.click();
+  //       console.log(' Cookie accepted via text=Accept Cookies');
+  //     } else {
+  //       console.log(' Cookie button not visible');
+  //     }
+  //   } catch (error) {
+  //     console.log(' Cookie popup not found or already handled');
+  //   }
+  // }
 
   async fillGiftCardDetails(details: {
     amount: string;

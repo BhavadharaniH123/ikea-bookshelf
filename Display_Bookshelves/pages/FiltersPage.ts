@@ -21,63 +21,60 @@ export class FiltersPage extends BasePage {
   async openAllFilters() {
     const allFiltersButton = this.getLocator(locators.SearchResultsPage.allFiltersButton);
     await allFiltersButton.click();
-    await this.page.waitForTimeout(1000);
-  }
-
-  async acceptCookies() {
     await this.page.waitForTimeout(2000);
-
-    const cookieButton = this.page.locator('button:has-text("Ok")');
-    const fallbackButton = this.page.locator('text=Accept Cookies');
-
-    try {
-      if (await cookieButton.isVisible({ timeout: 5000 })) {
-        await cookieButton.click();
-        console.log(' Cookie accepted via button:has-text');
-      } else if (await fallbackButton.isVisible({ timeout: 5000 })) {
-        await fallbackButton.click();
-        console.log(' Cookie accepted via text=Accept Cookies');
-      } else {
-        console.log(' Cookie button not visible');
-      }
-    } catch (error) {
-      console.log(' Cookie popup not found or already handled');
-    }
   }
 
-  async applyCategoryFilter(categories: string[]) {
-    const categoryButton = this.getLocator(locators.SearchResultsPage.categoryButton);
-    await categoryButton.click();
+  
+async applyCategoryFilter() {
+  console.log('Applying category filter...');
+  const categoryButton = this.getLocator(locators.SearchResultsPage.categoryButton);
+  await categoryButton.waitFor({ state: 'visible', timeout: 10000 });
+  await categoryButton.click();
 
-    for (const category of categories) {
-      const checkbox = this.page.locator(`label:has-text("${category}") input[type="checkbox"]`);
-      if (await checkbox.isVisible()) {
-        await checkbox.check();
-      }
-    }
-  }
+  const storageSolutionButton = this.getLocator(locators.SearchResultsPage.storageSolutionButton);
+  await storageSolutionButton.waitFor({ state: 'visible', timeout: 10000 });
+  await storageSolutionButton.click();
 
-  async applyPriceFilter(prices: string[]) {
-    const priceButton = this.getLocator(locators.SearchResultsPage.priceButton);
-    await priceButton.click();
+  const omarSystemButton = this.getLocator(locators.SearchResultsPage.omarSystemButton);
+  await omarSystemButton.waitFor({ state: 'visible', timeout: 10000 });
+  await omarSystemButton.click();
 
-    for (const price of prices) {
-      const checkbox = this.page.locator(`label:has-text("${price}") input[type="checkbox"]`);
-      if (await checkbox.isVisible()) {
-        await checkbox.check();
-      }
-    }
-  }
+  const omarCombinationsButton = this.getLocator(locators.SearchResultsPage.omarCombinationsButton);
+  await omarCombinationsButton.waitFor({ state: 'visible', timeout: 10000 });
+  await omarCombinationsButton.click();
+}
 
-  async applyAvailabilityFilter() {
-    const availabilityButton = this.getLocator(locators.SearchResultsPage.availabilityButton);
-    await availabilityButton.click();
+  async applyPriceFilter() {
+  console.log('Applying price filter...');
+  const priceButton = this.getLocator(locators.SearchResultsPage.priceButton);
+  await priceButton.waitFor({ state: 'visible', timeout: 10000 });
+  await priceButton.click();
 
-    const availabilityOption = this.getLocator(locators.SearchResultsPage.availabilityOption.nestedLocator);
-    if (await availabilityOption.isVisible()) {
-      await availabilityOption.click();
-    }
-  }
+  const priceRange0 = this.getLocator(locators.SearchResultsPage.priceRange0);
+  await priceRange0.waitFor({ state: 'visible', timeout: 10000 });
+  await priceRange0.click();
+
+  const priceRange5000 = this.getLocator(locators.SearchResultsPage.priceRange5000);
+  await priceRange5000.waitFor({ state: 'visible', timeout: 10000 });
+  await priceRange5000.click();
+
+  const priceRange10000 = this.getLocator(locators.SearchResultsPage.priceRange10000);
+  await priceRange10000.waitFor({ state: 'visible', timeout: 10000 });
+  await priceRange10000.click();
+}
+
+ async applyAvailabilityFilter() {
+  console.log('Applying availability filter...');
+  const availabilityButton = this.getLocator(locators.SearchResultsPage.availabilityButton);
+  await availabilityButton.waitFor({ state: 'visible', timeout: 10000 });
+  await availabilityButton.click();
+
+  const availabilityGroup = this.page.getByRole('group', { name: 'Availability' });
+  const optionSpan = availabilityGroup.locator('span').nth(4);
+  await optionSpan.waitFor({ state: 'visible', timeout: 10000 });
+  await optionSpan.click();
+}
+
 
   async applyViewButton() {
     const viewButton = this.getLocator(locators.SearchResultsPage.viewButton);

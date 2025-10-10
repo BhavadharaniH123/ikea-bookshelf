@@ -31,8 +31,8 @@ test.describe('US3–US6: Product Search & Filtering', () => {
     await pages.FiltersPage.acceptCookies();
     await pages.FiltersPage.searchProduct(searchTerm);
     await pages.FiltersPage.openAllFilters();
-    await pages.FiltersPage.applyCategoryFilter(['Storage solution systems', 'OMAR system']);
-    await pages.FiltersPage.applyPriceFilter(['₹0 -', '₹5,000 -', '₹10,000 -']);
+    await pages.FiltersPage.applyCategoryFilter();
+    await pages.FiltersPage.applyPriceFilter();
     await pages.FiltersPage.applyAvailabilityFilter();
     await pages.FiltersPage.applyViewButton();
     await pages.FiltersPage.printTopProducts('Top 3 Bookshelves below ₹15,000', 3);

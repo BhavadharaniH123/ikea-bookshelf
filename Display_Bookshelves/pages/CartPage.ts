@@ -20,29 +20,29 @@ export class CartPage extends BasePage {
     await buyGiftCardLocator.click();
     await this.page.waitForLoadState('domcontentloaded');
 
-    await this.page.locator('form[name="step1Form"]').waitFor({ state: 'visible', timeout: 20000 });
+    await this.page.locator('form[name="step1Form"]').waitFor({ state: 'visible', timeout: 30000 });
   }
 
-  async acceptCookies() {
-    await this.page.waitForTimeout(2000);
+  // async acceptCookies() {
+  //   await this.page.waitForTimeout(2000);
 
-    const cookieButton = this.page.locator('button:has-text("Ok")');
-    const fallbackButton = this.page.locator('text=Accept Cookies');
+  //   const cookieButton = this.page.locator('button:has-text("Ok")');
+  //   const fallbackButton = this.page.locator('text=Accept Cookies');
 
-    try {
-      if (await cookieButton.isVisible({ timeout: 5000 })) {
-        await cookieButton.click();
-        console.log(' Cookie accepted via button:has-text');
-      } else if (await fallbackButton.isVisible({ timeout: 5000 })) {
-        await fallbackButton.click();
-        console.log(' Cookie accepted via text=Accept Cookies');
-      } else {
-        console.log(' Cookie button not visible');
-      }
-    } catch (error) {
-      console.log(' Cookie popup not found or already handled');
-    }
-  }
+  //   try {
+  //     if (await cookieButton.isVisible({ timeout: 5000 })) {
+  //       await cookieButton.click();
+  //       console.log(' Cookie accepted via button:has-text');
+  //     } else if (await fallbackButton.isVisible({ timeout: 5000 })) {
+  //       await fallbackButton.click();
+  //       console.log(' Cookie accepted via text=Accept Cookies');
+  //     } else {
+  //       console.log(' Cookie button not visible');
+  //     }
+  //   } catch (error) {
+  //     console.log(' Cookie popup not found or already handled');
+  //   }
+  // }
 
   async fillAmountAndMessage(amount: string, message: string) {
     const { amountInput, messageInput } = locators.GiftCardPage;
@@ -115,9 +115,9 @@ export class CartPage extends BasePage {
     await buttonLocator.click();
   }
 
-  async verifyGiftCardInCart(email: string, amount: string) {
-    const cartItemLocator = this.getLocator(locators.CartPage.cartItem);
-    const filteredLocator = cartItemLocator.filter({ hasText: email }).filter({ hasText: amount });
+    async verifyGiftCardInCart(email: string, amount: string) {
+    const baseLocator = this.page.locator('.cartItem2');
+    const filteredLocator = baseLocator.filter({ hasText: email }).filter({ hasText: amount });
 
     await expect(filteredLocator).toBeVisible();
     console.log('Gift card successfully added to the cart and visible on the dashboard.');

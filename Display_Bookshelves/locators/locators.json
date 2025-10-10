@@ -52,6 +52,13 @@
         "name": "OMAR system"
       }
     },
+      "omarCombinationsButton": {
+      "type": "getByRole",
+      "role": "button",
+      "options": {
+        "name": "OMAR Combinations"
+      }
+    },
     "priceButton": {
       "type": "getByLabel",
       "label": "Sort and Filter",
